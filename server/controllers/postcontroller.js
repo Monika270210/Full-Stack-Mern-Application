@@ -45,3 +45,19 @@ export const likeData=async(req,res)=>{
         console.log(error);
     }
 }
+
+export const updateData=async(req,res)=>{
+   
+    const updatedPost=req.body.updatedPost;
+    // console.log(updatedPost);
+    try {
+         
+      await PostMessage.findOneAndReplace({_id:updatedPost._id},updatedPost);
+    //   console.log("replacement successfull !!!");
+
+
+    } catch (error) {
+        // console.log("error while updating the data !!");
+        console.log(error);
+    }
+}

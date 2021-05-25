@@ -9,6 +9,8 @@ const postReducer=(posts=[],action)=>{
                 return posts.filter(post=>post._id!==action.payload);
                 case 'LIKE_POST':
                     return posts;
+                    case 'UPDATE_POST':
+                        return posts.filter(post=>post._id!==action.payload._id ? post:action.payload);
         default:
             return posts;
     }

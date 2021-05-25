@@ -58,3 +58,17 @@ export const likePost=(Data)=>async(dispatch)=>{
     }
 
 }
+
+export const updatePost=(Data)=>async(dispatch)=>{
+      
+    try {
+        await api.updatePost(Data);
+        const updatePostobj={
+            type:'UPDATE_POST',
+            payload:Data
+        }
+        dispatch(updatePostobj);
+    } catch (error) {
+        console.log(error);
+    }
+}

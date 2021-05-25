@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect,useState } from 'react'
 import Form from './components/Form/form';
 import Posts from './components/Posts/posts';
 import { useDispatch } from 'react-redux'
@@ -10,9 +10,10 @@ import useStyles from './styles';
 const App = () => {
     const dispatch = useDispatch();
     //  console.log(getData());
+    const [curr,setCurrent]=useState(undefined);
     useEffect(() => {
         dispatch(getData());
-    }, [dispatch]);
+    }, [dispatch,curr]);
     const classes = useStyles();
     return (
         <div>
@@ -25,10 +26,10 @@ const App = () => {
                     <Container>
                         <Grid container justify="space-between" alignItems="stretch" spacing={3}>
                             <Grid item xs={12} sm={7}>
-                                <Posts />
+                                <Posts curr={curr} setCurrent={setCurrent} />
                             </Grid>
                             <Grid item xs={12} sm={4}>
-                                <Form />
+                                <Form curr={curr} setCurrent={setCurrent} />
                             </Grid>
                         </Grid>
                     </Container>

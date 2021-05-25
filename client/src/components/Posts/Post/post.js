@@ -9,24 +9,29 @@ import { useDispatch } from 'react-redux';
 import { deleteData, likePost } from '../../../actions/postactions'
 
 
-const Post = ({ post }) => {
+const Post = ({ post,curr,setCurrent }) => {
 
-    const [curr_id, updatepost] = useState(0);
+    const [curr_post, updatepost] = useState(0);
     const classes = useStyles();
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (post._id) {
-            updatepost(post._id);
+            updatepost(post);
         }
     }, [post])
 
     const deleteItem = () => {
-        dispatch(deleteData(curr_id));
+        dispatch(deleteData(curr_post._id));
     }
 
     const likepost = () => {
-        dispatch(likePost(curr_id));
+        dispatch(likePost(curr_post._id));
+    }
+
+    const handleEditpost=async()=>{
+         await setCurrent(curr_post);
+        //   console.log(curr); 
     }
 
     return (
@@ -37,7 +42,7 @@ const Post = ({ post }) => {
                 <Typography variant="body2">{moment(post.time).fromNow()}</Typography>
             </div>
             <div className={classes.overlay2}>
-                <Button style={{ color: 'white' }} size="small"><MoreHorizIcon fontSize="default" /></Button>
+                <Button style={{ color: 'white' }} size="small" onClick={handleEditpost} ><MoreHorizIcon fontSize="default" /></Button>
             </div>
             <div className={classes.details}>
                 <Typography variant="body2" color="textSecondary" component="h2">{post.tags.map(tag => `#${tag} `)}</Typography>

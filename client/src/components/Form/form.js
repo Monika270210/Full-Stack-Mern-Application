@@ -2,11 +2,11 @@ import React,{useState,useEffect} from 'react'
 import { TextField, Button, Typography, Paper } from '@material-ui/core';
 import useStyles from './styles';
 import {useDispatch} from 'react-redux'
-import {postData} from '../../actions/postactions'
+import {postData,updatePost} from '../../actions/postactions'
 import FileBase  from 'react-file-base64'
 
 
-const Form=()=> {
+const Form=({curr,setCurrent})=> {
     const classes = useStyles();
     const dispatch = useDispatch();
 
@@ -19,21 +19,26 @@ const Form=()=> {
     });
 
    useEffect(()=>{
-     if(Data)
+     if(curr!==undefined)
      {
-         updateData(Data);
+         updateData(curr);
      }
-   },[Data])
+   },[curr])
 
     const handlesubmit=(e)=>{
        e.preventDefault();
-       
-       dispatch(postData(Data));
+       if(curr===undefined){
+        dispatch(postData(Data));
+       }
+       else{
+            dispatch(updatePost(Data));
+       }
        handleclear();
 
     }
 
-    const handleclear=()=>{
+    const handleclear=async()=>{
+        setCurrent(undefined);
         updateData({
             ...Data,
             creator:'',
