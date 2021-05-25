@@ -28,3 +28,33 @@ export const postData=(Data)=>async(dispatch)=>{
         console.log(error);
     }
 }
+
+
+export const deleteData=(Data)=>async(dispatch)=>{
+    //   console.log(Data);
+      try {
+          await api.deleteData(Data);
+          const deleteDataobj={
+              type:'DELETE_POST',
+              payload:Data,
+          }
+          dispatch(deleteDataobj);
+      } catch (error) {
+          console.log(error);
+      }
+}
+
+export const likePost=(Data)=>async(dispatch)=>{
+
+    try {
+        await api.likePost(Data);
+        const likePostobj={
+            type:'LIKE_POST',
+            payload:Data,
+        }
+        dispatch(likePostobj);
+    } catch (error) {
+        console.log(error);
+    }
+
+}

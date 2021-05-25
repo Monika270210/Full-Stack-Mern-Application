@@ -5,6 +5,10 @@ const postReducer=(posts=[],action)=>{
           return action.payload;
           case 'POST_NEW_DATA':
             return [...posts,action.payload];
+            case 'DELETE_POST':
+                return posts.filter(post=>post._id!==action.payload);
+                case 'LIKE_POST':
+                    return posts;
         default:
             return posts;
     }

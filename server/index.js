@@ -23,6 +23,8 @@ mongoose.connect("mongodb://localhost:27017/memoriesdb",{useNewUrlParser:true,us
         console.log("database is connected successfully !!");
     }
 })
+mongoose.set('useFindAndModify', false);
+
 
 app.use('/posts',postRoutes);
 
