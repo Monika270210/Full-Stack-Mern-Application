@@ -14,7 +14,8 @@ export const postData=async(req,res)=>{
     const newpost=req.body;
     const newPost= new PostMessage(newpost);
     try {
-       await newPost.save();
+      await newPost.save();
+       res.send(newPost);
         // console.log("saving the new post !!");
     } catch (error) {
         // console.log("error in posting data ");
@@ -27,7 +28,8 @@ export const deleteData=async(req,res)=>{
     const id=req.body.delete_id
     
     try {
-        await PostMessage.findByIdAndDelete(id);
+       const deletedPost=await PostMessage.findByIdAndDelete(id);
+       res.send(deletedPost);
         // console.log("deleting the post !!");  
     } catch (error) {
         // console.log("error while deleting !!");
@@ -40,7 +42,8 @@ export const likeData=async(req,res)=>{
     // console.log(id);
     try {
         const post=await PostMessage.findById(id)
-        await PostMessage.findByIdAndUpdate(id,{likes:post.likes+1},{new:true});
+        const updatedPost=await PostMessage.findByIdAndUpdate(id,{likes:post.likes+1},{new:true});
+        res.send(updatedPost);
     } catch (error) {
         console.log(error);
     }
@@ -53,6 +56,7 @@ export const updateData=async(req,res)=>{
     try {
          
       await PostMessage.findOneAndReplace({_id:updatedPost._id},updatedPost);
+       res.send(updatedPost);
     //   console.log("replacement successfull !!!");
 
 

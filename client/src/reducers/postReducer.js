@@ -6,11 +6,11 @@ const postReducer=(posts=[],action)=>{
           case 'POST_NEW_DATA':
             return [...posts,action.payload];
             case 'DELETE_POST':
-                return posts.filter(post=>post._id!==action.payload);
+                return posts.filter(post=>post._id!==action.payload._id);
                 case 'LIKE_POST':
-                    return posts;
+                    return posts.map(post=>post._id===action.payload._id ? action.payload:post);
                     case 'UPDATE_POST':
-                        return posts.filter(post=>post._id!==action.payload._id ? post:action.payload);
+                        return posts.map(post=>post._id===action.payload._id ? action.payload:post);
         default:
             return posts;
     }

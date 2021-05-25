@@ -8,7 +8,7 @@ const Posts=({curr,setCurrent})=> {
     
     const allposts=useSelector(state =>state.postReducer);
     const classes = useStyles();
-    console.log(allposts);
+    // console.log(allposts);
     
     return (
          

@@ -17,10 +17,10 @@ export const postData=(Data)=>async(dispatch)=>{
     //  console.log("my new posted data ")
     //  console.log(Data);
     try {
-          await api.postData(Data);
+         const {data}=await api.postData(Data);
         const postDataobj={
             type:'POST_NEW_DATA',
-            payload:Data,
+            payload:data,
         }
         dispatch(postDataobj);
 
@@ -33,7 +33,7 @@ export const postData=(Data)=>async(dispatch)=>{
 export const deleteData=(Data)=>async(dispatch)=>{
     //   console.log(Data);
       try {
-          await api.deleteData(Data);
+         await api.deleteData(Data._id);
           const deleteDataobj={
               type:'DELETE_POST',
               payload:Data,
@@ -47,10 +47,10 @@ export const deleteData=(Data)=>async(dispatch)=>{
 export const likePost=(Data)=>async(dispatch)=>{
 
     try {
-        await api.likePost(Data);
+      const {data}= await api.likePost(Data._id);
         const likePostobj={
             type:'LIKE_POST',
-            payload:Data,
+            payload:data,
         }
         dispatch(likePostobj);
     } catch (error) {
@@ -62,10 +62,10 @@ export const likePost=(Data)=>async(dispatch)=>{
 export const updatePost=(Data)=>async(dispatch)=>{
       
     try {
-        await api.updatePost(Data);
+        const {data}=await api.updatePost(Data);
         const updatePostobj={
             type:'UPDATE_POST',
-            payload:Data
+            payload:data
         }
         dispatch(updatePostobj);
     } catch (error) {
