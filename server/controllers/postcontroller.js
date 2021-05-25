@@ -19,3 +19,15 @@ export const postData=async(req,res)=>{
         console.log("error in posting data "+error);
     }
 }
+
+
+export const deleteData=async(req,res)=>{
+    const post=req.body;
+    try {
+        await PostMessage.findByIdAndDelete({_id:post._id});
+        console.log("deleting the post !!");  
+    } catch (error) {
+        console.log("error while deleting !!");
+        console.log(error);
+    }
+}
