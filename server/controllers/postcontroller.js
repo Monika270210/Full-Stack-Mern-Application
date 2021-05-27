@@ -50,7 +50,7 @@ export const likeData=async(req,res)=>{
 }
 
 export const updateData=async(req,res)=>{
-   
+//    console.log("updating...");
     const updatedPost=req.body.updatedPost;
     // console.log(updatedPost);
     try {

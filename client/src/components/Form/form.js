@@ -25,7 +25,7 @@ const Form=({curr,setCurrent})=> {
      }
    },[curr])
 
-    const handlesubmit=(e)=>{
+    const handlesubmit=async(e)=>{
        e.preventDefault();
        if(curr===undefined){
         dispatch(postData(Data));
@@ -33,14 +33,13 @@ const Form=({curr,setCurrent})=> {
        else{
             dispatch(updatePost(Data));
        }
-       handleclear();
+      await handleclear();
 
     }
 
     const handleclear=async()=>{
         setCurrent(undefined);
         updateData({
-            ...Data,
             creator:'',
             title:'',
             message:'',
@@ -53,7 +52,7 @@ const Form=({curr,setCurrent})=> {
     return (
         <Paper className={classes.paper}>
         <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handlesubmit} >
-            <Typography variant="h6">Creating a post</Typography>
+            <Typography variant="h6">{curr===undefined ? 'Creating a post':'Editing a post'}</Typography>
             <TextField name="creator" variant="outlined" fullWidth label="Creator"  value={Data.creator} onChange={(e)=> updateData({...Data,creator:e.target.value})} />
             <TextField name="title" variant="outlined" fullWidth label="Title"  value={Data.title} onChange={(e)=> updateData({...Data,title:e.target.value})} />
             <TextField name="message" variant="outlined" fullWidth label="Message" value={Data.message} onChange={(e)=> updateData({...Data,message:e.target.value})} />

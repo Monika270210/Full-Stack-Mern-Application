@@ -17,6 +17,7 @@ export const postData=(Data)=>async(dispatch)=>{
     //  console.log("my new posted data ")
     //  console.log(Data);
     try {
+
          const {data}=await api.postData(Data);
         const postDataobj={
             type:'POST_NEW_DATA',
