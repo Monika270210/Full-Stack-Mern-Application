@@ -4,6 +4,7 @@ import useStyles from './styles';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { LogOut } from '../../actions/authactions';
+import decode from 'jwt-decode'
 
 const Navbar = () => {
     // const isUser = false;
@@ -15,6 +16,17 @@ const Navbar = () => {
     const [isUser, setUser] = useState(JSON.parse(window.localStorage.getItem('user')));
 
     useEffect(() => {
+          
+       const token=isUser?.token;
+       if (token) {
+        const decodedToken = decode(token);
+         console.log(decodedToken);
+  
+        if (decodedToken.exp * 1000 < new Date().getTime()) 
+        handleLogout();
+      }
+
+
         setUser(JSON.parse(window.localStorage.getItem('user')));
     }, [location]);
 
@@ -25,8 +37,8 @@ const Navbar = () => {
     }
     const handleLogout = () => {
         dispatch(LogOut());
-        history.push('/');
         setUser(null);
+        history.push('/');
     }
     return (
         <AppBar className={classes.appBar} position="static" color="inherit">
