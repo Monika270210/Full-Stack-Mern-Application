@@ -1,7 +1,6 @@
-
+import * as api from '../api/api';
 
 export const SigninWithGoogle=(profile)=>async(dispatch)=>{
-        //  console.log(profile);
         try {
             
             const SigninWithGoogleObj={
@@ -12,6 +11,36 @@ export const SigninWithGoogle=(profile)=>async(dispatch)=>{
         } catch (error) {
             console.log(error);
         }
+}
+
+export const signInaction=(formData,history)=>async(dispatch)=>{
+    try {
+        const {data}=await api.signIn(formData);
+        const signInObj={
+            type:'SIGN_IN',
+            payload:data
+        }
+        dispatch(signInObj);
+        history.push('/')
+    } catch (error) {
+        alert("Enter valid details !!!");
+        console.log(error);
+    }
+}
+
+export const signUpaction=(formData,history)=>async(dispatch)=>{
+    try {
+        const {data}=await api.signUp(formData);
+        const signUpObj={
+            type:'SIGN_UP',
+            payload:data
+        }
+        dispatch(signUpObj);
+        history.push('/');
+    } catch (error) {
+        alert("Enter valid details !!!");
+        console.log(error);
+    }
 }
 
 export const LogOut=()=>async(dispatch)=>{

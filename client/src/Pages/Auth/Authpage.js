@@ -3,7 +3,7 @@ import { Avatar, Button, Paper, Grid, Typography, Container, TextField } from '@
 import { LockRounded } from '@material-ui/icons'
 import useStyles from './styles';
 import { GoogleLogin } from 'react-google-login';
-import { SigninWithGoogle } from '../../actions/authactions';
+import { signInaction, SigninWithGoogle,signUpaction } from '../../actions/authactions';
 import {useDispatch}  from 'react-redux';
 
 
@@ -29,10 +29,10 @@ const Authpage = ({ history }) => {
     const handleAuth = (e) => {
         e.preventDefault();
         if (signUp) {
-            console.log("sending signup request...");
+            dispatch(signUpaction(formData,history));
         }
         else {
-            console.log("sending login request...");
+            dispatch(signInaction(formData,history));
         }
         handleclear();
     }
@@ -43,10 +43,9 @@ const Authpage = ({ history }) => {
 
     const handleclear = () => {
         setFormdata(initialstate);
-        history.push('/');
     }
 
-    const googleSuccess=(response)=>{
+    const googleSuccess=async(response)=>{
         dispatch( SigninWithGoogle(response.profileObj));
         history.push('/');
     }

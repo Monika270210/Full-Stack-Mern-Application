@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import Form from '.././components/Form/form';
-import Posts from '.././components/Posts/posts';
+import Form from '../../components/Form/form';
+import Posts from '../../components/Posts/posts';
 import { Grid, Grow, Container } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
-import { getData } from '../actions/postactions';
+import { getData } from '../../actions/postactions';
 
 const Homepage = () => {
 

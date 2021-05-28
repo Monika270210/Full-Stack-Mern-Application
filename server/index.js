@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import postRoutes from './routes/postroute.js'
+import userRoutes from './routes/userRoute.js';
 
 const app=express();
 const PORT=process.env.PORT||5000;
@@ -27,6 +28,7 @@ mongoose.set('useFindAndModify', false);
 
 
 app.use('/posts',postRoutes);
+app.use('/users',userRoutes);
 
 
 app.listen(PORT,(err)=>{
