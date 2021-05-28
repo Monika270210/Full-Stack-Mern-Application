@@ -1,16 +1,17 @@
 import express from 'express';
 import {deleteData, getData,postData,likeData, updateData} from '../controllers/postcontroller.js';
+import Auth from '../middleware/auth.js';
 
 const router=express.Router();
 
 router.get('/',getData);
 
-router.post('/',postData);
+router.post('/',Auth,postData);
 
-router.delete('/',deleteData);
+router.delete('/',Auth,deleteData);
 
-router.patch('/',likeData);
+router.patch('/',Auth,likeData);
 
-router.put('/',updateData)
+router.put('/',Auth,updateData)
 
 export default router;

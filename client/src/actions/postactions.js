@@ -2,7 +2,7 @@ import * as api from '../api/api';
 
 export const getData=()=>async(dispatch)=>{
     try {
-        const {data}=await api.fetchData();  
+        const {data}=await api.fetchData();
         const getDataobj={
             type:'FETCH_ALL_POSTS',
             payload:data,
@@ -61,7 +61,7 @@ export const likePost=(Data)=>async(dispatch)=>{
 }
 
 export const updatePost=(Data)=>async(dispatch)=>{
-      
+    //   console.log(Data);
     try {
         const {data}=await api.updatePost(Data);
         const updatePostobj={

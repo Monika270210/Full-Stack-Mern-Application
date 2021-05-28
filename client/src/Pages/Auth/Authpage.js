@@ -46,7 +46,7 @@ const Authpage = ({ history }) => {
     }
 
     const googleSuccess=async(response)=>{
-        dispatch( SigninWithGoogle(response.profileObj));
+        dispatch( SigninWithGoogle(response));
         history.push('/');
     }
 

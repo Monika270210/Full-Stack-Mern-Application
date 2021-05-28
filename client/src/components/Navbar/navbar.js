@@ -37,8 +37,8 @@ const Navbar = () => {
                 {
                     isUser ? (
                         <div className={classes.profile}>
-                            <Avatar className={classes.purple} alt={isUser.name} src={isUser.imageUrl}>{isUser.name.charAt(0)}</Avatar>
-                            <Typography className={classes.userName} variant="h6">{isUser.name}</Typography>
+                            <Avatar className={classes.purple} alt={isUser.profile.name} src={isUser.profile.imageUrl}>{isUser.profile.name.charAt(0)}</Avatar>
+                            <Typography className={classes.userName} variant="h6">{isUser.profile.name}</Typography>
                             <Button variant="contained" color="primary" onClick={handleLogout}>Log out</Button>
                         </div>
                     ) : <Button variant="contained" color="primary" onClick={handleSignin} >Sign In</Button>

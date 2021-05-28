@@ -12,7 +12,7 @@ export const getData=async(req,res)=>{
 
 export const postData=async(req,res)=>{
     const newpost=req.body;
-    const newPost= new PostMessage(newpost);
+    const newPost= new PostMessage({...newpost,creator:req.userId,time:new Date().toISOString()});
     try {
       await newPost.save();
        res.send(newPost);
@@ -41,8 +41,19 @@ export const likeData=async(req,res)=>{
     const id=req.body.user_id;
     // console.log(id);
     try {
-        const post=await PostMessage.findById(id)
-        const updatedPost=await PostMessage.findByIdAndUpdate(id,{likes:post.likes+1},{new:true});
+        const post=await PostMessage.findById(id);
+        const ifalreadyliked=post.likes.findIndex((id) => id ===String(req.userId));
+        if(ifalreadyliked==-1)
+        {
+            // liking..
+            post.likes.push(req.userId);
+        }
+        else
+        {
+            // disliking...
+          post.likes=post.likes.filter(id=>id!==String(req.userId));
+        }
+        const updatedPost=await PostMessage.findByIdAndUpdate(id,post,{new:true});
         res.send(updatedPost);
     } catch (error) {
         console.log(error);

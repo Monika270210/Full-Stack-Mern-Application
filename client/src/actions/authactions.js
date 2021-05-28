@@ -1,11 +1,13 @@
 import * as api from '../api/api';
 
-export const SigninWithGoogle=(profile)=>async(dispatch)=>{
+export const SigninWithGoogle=(response)=>async(dispatch)=>{
+      const profile=response.profileObj;
+      const token=response.tokenId;
         try {
             
             const SigninWithGoogleObj={
                 type:'SIGN_IN_WITH_GOOGLE',
-                payload:profile
+                payload:{profile,token}
             }
             dispatch(SigninWithGoogleObj);
         } catch (error) {
@@ -16,6 +18,7 @@ export const SigninWithGoogle=(profile)=>async(dispatch)=>{
 export const signInaction=(formData,history)=>async(dispatch)=>{
     try {
         const {data}=await api.signIn(formData);
+        // console.log(data);
         const signInObj={
             type:'SIGN_IN',
             payload:data
@@ -31,6 +34,7 @@ export const signInaction=(formData,history)=>async(dispatch)=>{
 export const signUpaction=(formData,history)=>async(dispatch)=>{
     try {
         const {data}=await api.signUp(formData);
+        // console.log(data);
         const signUpObj={
             type:'SIGN_UP',
             payload:data

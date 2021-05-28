@@ -1,20 +1,30 @@
 import axios from 'axios';
 
-const url="http://localhost:5000/posts";
+// const url="http://localhost:5000/posts";
+const API=axios.create({baseURL:"http://localhost:5000"});
+
+API.interceptors.request.use((req)=>{
+    if(localStorage.getItem('user'))
+    {
+        req.headers.Authorization=`Bearer ${JSON.parse(localStorage.getItem('user')).token}`
+    }
+    return req;
+})
 
 
-export const fetchData=()=>axios.get(url);
 
-export const postData=(newPost)=>axios.post(url,newPost);
+export const fetchData=()=>API.get(`/posts`);
 
-export const deleteData=(id)=>axios.delete(url,{data:{delete_id:id}});
+export const postData=(newPost)=>API.post(`/posts`,newPost);
 
-export const likePost=(id)=>axios.patch(url,{user_id:id});
+export const deleteData=(id)=>API.delete(`/posts`,{data:{delete_id:id}});
 
-export const updatePost=(Data)=>axios.put(url,{updatedPost:Data});
+export const likePost=(id)=>API.patch(`/posts`,{user_id:id});
 
-const newurl="http://localhost:5000/users";
+export const updatePost=(Data)=>API.put(`/posts`,{updatedPost:Data});
 
-export const signIn=(UserDetails)=>axios.post(`${newurl}/signin`,UserDetails);
+// const newurl="http://localhost:5000/users";
 
-export const signUp=(UserDetails)=>axios.post(`${newurl}/signup`,UserDetails);
+export const signIn=(UserDetails)=>API.post(`/users/signin`,UserDetails);
+
+export const signUp=(UserDetails)=>API.post(`/users/signup`,UserDetails);
