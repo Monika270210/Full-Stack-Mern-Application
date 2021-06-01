@@ -3,9 +3,9 @@ import Form from '../../components/Form/form';
 import Posts from '../../components/Posts/posts';
 import { Grid, Grow, Container, Paper,AppBar,TextField,Button } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
-import { getData } from '../../actions/postactions';
+import {useHistory} from 'react-router-dom'
+import { getData, getsearchData } from '../../actions/postactions';
 import Paginate from '../../components/Pagination/Pagination';
-import ChipInput from 'material-ui-chip-input';
 import useStyles from './styles'
 
 const Homepage = () => {
@@ -14,14 +14,33 @@ const Homepage = () => {
 
     const [curr, setCurrent] = useState(undefined);
     const [titlesearch,setTitleSearch]=useState('');
-    // const [tagsearch,setTagSerach]=useState('');
+    const [tagsearch,setTagSerach]=useState('');
     const dispatch = useDispatch();
+    const history=useHistory();
+
+
+
     useEffect(() => {
         dispatch(getData());
     }, [dispatch, curr]);
 
     const handlechange=(e)=>{
+        if(e.target.name==="titlesearch")
           setTitleSearch(e.target.value);
+          else
+          setTagSerach(e.target.value);
+    }
+
+    const handleSearch=()=>{
+        if(titlesearch.trim() || tagsearch)
+        {
+        dispatch(getsearchData({title:titlesearch,tag:tagsearch}));
+        history.push(`/posts/search`);
+        }
+        else
+        {
+            history.push('/');
+        }
     }
 
 
@@ -35,17 +54,15 @@ const Homepage = () => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
                         <AppBar className={classes.appBarSearch} position="static" color="inherit">
-                            <TextField name="titlesearch" variant="outlined" label="Search Memories" fullWidth
+                            <TextField name="titlesearch" variant="outlined" label="Search Title" fullWidth
                               value={titlesearch}
                               onChange={handlechange}
                              />
-                            <ChipInput
-                                style={{ margin: '10px 0' }}
-                                label="Search Tags"
-                                variant="outlined"
-                                name="tagsearch"
-                            />
-                            <Button className={classes.searchButton} variant="contained" color="primary">Search</Button>
+                              <TextField style={{margin:'10px 0'}} name="tagsearch" variant="outlined" label="Search Tag" fullWidth
+                              value={tagsearch}
+                              onChange={handlechange}
+                             />
+                            <Button className={classes.searchButton} variant="contained" color="primary" onClick={handleSearch}>Search</Button>
                         </AppBar>
                         <Form curr={curr} setCurrent={setCurrent} />
                         <Paper className={classes.pagination} elevation={6}>

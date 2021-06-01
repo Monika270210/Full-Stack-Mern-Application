@@ -13,6 +13,21 @@ export const getData=()=>async(dispatch)=>{
     }
 }
 
+export const getsearchData=(searchFields)=>async(dispatch)=>{
+    try {
+        console.log(searchFields);
+       const {data}=await api.fetchSearchData(searchFields);
+       console.log(data);
+       const getSearchDataObj={
+           type:'FETCH_SEARCH_POST',
+           payload:data
+       }
+       dispatch(getSearchDataObj);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const postData=(Data)=>async(dispatch)=>{
     //  console.log("my new posted data ")
     //  console.log(Data);

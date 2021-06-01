@@ -10,6 +10,17 @@ export const getData=async(req,res)=>{
     }
 }
 
+export const getSearchData=async(req,res)=>{
+     const {title,tag}=req.query;
+    try {
+         const searchtitle = new RegExp(title, 'i');
+        const posts=await PostMessage.find({ $or:[{title:searchtitle},{tags:tag}] });
+        res.send(posts);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const postData=async(req,res)=>{
     const newpost=req.body;
     const newPost= new PostMessage({...newpost,creator:req.userId,time:new Date().toISOString()});

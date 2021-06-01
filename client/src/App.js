@@ -14,6 +14,7 @@ const App = () => {
             <Switch>
             <Route exact path='/' render={()=><Redirect to='/posts' />} />
             <Route exact path='/posts'  component={Homepage} />
+            <Route exact path='/posts/search' component={Homepage} />
             <Route exact path='/Auth' component={()=>(User ? <Redirect to='/posts' />:<Authpage/>)} />
             </Switch>
             </Container>

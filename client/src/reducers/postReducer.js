@@ -3,6 +3,8 @@ const postReducer=(posts=[],action)=>{
     switch (action.type) {
         case 'FETCH_ALL_POSTS':
           return action.payload;
+          case 'FETCH_SEARCH_POST':
+              return action.payload;
           case 'POST_NEW_DATA':
             return [...posts,action.payload];
             case 'DELETE_POST':

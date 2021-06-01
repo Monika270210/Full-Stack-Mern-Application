@@ -1,7 +1,7 @@
 import React, { useState, useEffect,useCallback } from 'react'
 import {Avatar,AppBar, Button, Typography, Toolbar } from '@material-ui/core';
 import useStyles from './styles';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation,Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { LogOut } from '../../actions/authactions';
 import decode from 'jwt-decode'
@@ -47,7 +47,7 @@ const Navbar = () => {
     return (
         <AppBar className={classes.appBar} position="static" color="inherit">
             <div className={classes.brandContainer}>
-                <Typography className={classes.heading} variant="h2" align="center">Memories</Typography>
+                <Typography className={classes.heading} variant="h2" align="center"><Link to='/'>Memories</Link></Typography>
             </div>
             <Toolbar className={classes.toolbar}>
                 {

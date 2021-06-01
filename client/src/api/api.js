@@ -15,6 +15,8 @@ API.interceptors.request.use((req)=>{
 
 export const fetchData=()=>API.get(`/posts`);
 
+export const fetchSearchData=(searchFileds)=>API.get(`/posts/search?title=${searchFileds.title || 'none'}&tag=${searchFileds.tag}`);
+
 export const postData=(newPost)=>API.post(`/posts`,newPost);
 
 export const deleteData=(id)=>API.delete(`/posts`,{data:{delete_id:id}});
