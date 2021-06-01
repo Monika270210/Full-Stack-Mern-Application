@@ -3,12 +3,13 @@ import { Avatar, Button, Paper, Grid, Typography, Container, TextField } from '@
 import { LockRounded } from '@material-ui/icons'
 import useStyles from './styles';
 import { GoogleLogin } from 'react-google-login';
+import {useHistory} from 'react-router-dom'
 import { signInaction, SigninWithGoogle,signUpaction } from '../../actions/authactions';
 import {useDispatch}  from 'react-redux';
 
 
 // all the components in the route of browserRouter already get the access to the history as a prop if we do not pass then also...
-const Authpage = ({ history }) => {
+const Authpage = () => {
     const initialstate = {
         firstname: '',
         lastname: '',
@@ -20,6 +21,7 @@ const Authpage = ({ history }) => {
     const [signUp, setMode] = useState(false);
     const [formData, setFormdata] = useState(initialstate);
     const dispatch = useDispatch();
+    const history=useHistory();
 
 
     const toggleMode = () => {
