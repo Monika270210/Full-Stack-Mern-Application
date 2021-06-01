@@ -13,7 +13,7 @@ API.interceptors.request.use((req)=>{
 
 
 
-export const fetchData=()=>API.get(`/posts`);
+export const fetchData=(page)=>API.get(`/posts?page=${page}`);
 
 export const fetchSearchData=(searchFileds)=>API.get(`/posts/search?title=${searchFileds.title || 'none'}&tag=${searchFileds.tag}`);
 

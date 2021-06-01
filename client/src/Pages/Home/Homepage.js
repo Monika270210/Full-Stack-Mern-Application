@@ -1,12 +1,18 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState} from 'react'
 import Form from '../../components/Form/form';
 import Posts from '../../components/Posts/posts';
 import { Grid, Grow, Container, Paper,AppBar,TextField,Button } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
-import {useHistory} from 'react-router-dom'
-import { getData, getsearchData } from '../../actions/postactions';
+import {useHistory,useLocation} from 'react-router-dom'
+import {  getsearchData } from '../../actions/postactions';
 import Paginate from '../../components/Pagination/Pagination';
 import useStyles from './styles'
+
+
+function useQuery(){
+    return new URLSearchParams(useLocation().search);
+}
+
 
 const Homepage = () => {
 
@@ -14,26 +20,24 @@ const Homepage = () => {
 
     const [curr, setCurrent] = useState(undefined);
     const [titlesearch,setTitleSearch]=useState('');
-    const [tagsearch,setTagSerach]=useState('');
+    const [tagsearch,setTagSearch]=useState('');
     const dispatch = useDispatch();
     const history=useHistory();
+    const query=useQuery();
+    const page = query.get('page') || 1;
+    // console.log(page);
 
-
-
-    useEffect(() => {
-        dispatch(getData());
-    }, [dispatch, curr]);
 
     const handlechange=(e)=>{
         if(e.target.name==="titlesearch")
           setTitleSearch(e.target.value);
           else
-          setTagSerach(e.target.value);
+          setTagSearch(e.target.value);
     }
 
     const handleSearch=()=>{
         if(titlesearch.trim() || tagsearch)
-        {
+        {   
         dispatch(getsearchData({title:titlesearch,tag:tagsearch}));
         history.push(`/posts/search`);
         }
@@ -66,7 +70,7 @@ const Homepage = () => {
                         </AppBar>
                         <Form curr={curr} setCurrent={setCurrent} />
                         <Paper className={classes.pagination} elevation={6}>
-                            <Paginate />
+                            <Paginate page={page} />
                         </Paper>
                     </Grid>
                 </Grid>

@@ -1,9 +1,14 @@
 import PostMessage from '../models/postmodel.js';
 
 export const getData=async(req,res)=>{
+    const {page}=req.query;
     try {
-        const allposts=await PostMessage.find();
-        res.send(allposts);
+        const limit=3;
+        const startind=(page-1)*limit;
+        const totalposts=await PostMessage.countDocuments();
+        const totalpages=Math.ceil(totalposts/limit);
+        const allposts=await PostMessage.find().sort({_id:-1}).limit(3).skip(startind);
+        res.send({allposts,totalpages,currentpage:Number(page)});
     } catch (error) {
         // console.log("error in getting data ")
         console.log(error); 

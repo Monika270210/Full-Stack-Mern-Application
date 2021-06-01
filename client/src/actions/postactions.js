@@ -1,8 +1,9 @@
 import * as api from '../api/api';
 
-export const getData=()=>async(dispatch)=>{
+export const getData=(page)=>async(dispatch)=>{
     try {
-        const {data}=await api.fetchData();
+        const {data}=await api.fetchData(page);
+        // console.log(data);
         const getDataobj={
             type:'FETCH_ALL_POSTS',
             payload:data,
@@ -15,7 +16,7 @@ export const getData=()=>async(dispatch)=>{
 
 export const getsearchData=(searchFields)=>async(dispatch)=>{
     try {
-        console.log(searchFields);
+        // console.log(searchFields);
        const {data}=await api.fetchSearchData(searchFields);
        console.log(data);
        const getSearchDataObj={

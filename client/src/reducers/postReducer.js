@@ -1,20 +1,20 @@
 
-const postReducer=(posts=[],action)=>{
+const postReducer=(state={posts:[]},action)=>{
     switch (action.type) {
         case 'FETCH_ALL_POSTS':
-          return action.payload;
+          return {...state,posts:action.payload.allposts,currentpage:action.payload.currentpage,totalpages:action.payload.totalpages};
           case 'FETCH_SEARCH_POST':
-              return action.payload;
+              return {...state,posts:action.payload};
           case 'POST_NEW_DATA':
-            return [...posts,action.payload];
+            return {...state,posts:[...state.posts,action.payload]};
             case 'DELETE_POST':
-                return posts.filter(post=>post._id!==action.payload._id);
+                return {...state,posts:state.posts.filter(post=>post._id!==action.payload._id)};
                 case 'LIKE_POST':
-                    return posts.map(post=>post._id===action.payload._id ? action.payload:post);
+                    return {...state,posts:state.posts.map(post=>post._id===action.payload._id ? action.payload:post)};
                     case 'UPDATE_POST':
-                        return posts.map(post=>post._id===action.payload._id ? action.payload:post);
+                        return {...state,posts:state.posts.map(post=>post._id===action.payload._id ? action.payload:post)};
         default:
-            return posts;
+            return state;
     }
 }
 

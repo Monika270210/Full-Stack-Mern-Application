@@ -6,7 +6,7 @@ import useStyles from './styles';
 
 const Posts=({curr,setCurrent})=> {
     
-    const allposts=useSelector(state =>state.postReducer);
+    const allposts=useSelector(state =>state.postReducer.posts);
     const classes = useStyles();
     // console.log(allposts);
     
