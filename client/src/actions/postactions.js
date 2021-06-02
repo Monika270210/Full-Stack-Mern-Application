@@ -2,6 +2,7 @@ import * as api from '../api/api';
 
 export const getData=(page)=>async(dispatch)=>{
     try {
+        dispatch({type:'LOADING_TRUE'});
         const {data}=await api.fetchData(page);
         // console.log(data);
         const getDataobj={
@@ -9,6 +10,7 @@ export const getData=(page)=>async(dispatch)=>{
             payload:data,
         }
          dispatch(getDataobj);
+         dispatch({type:'LOADING_FALSE'});
     } catch (error) {
         console.log(error);
     }
@@ -16,6 +18,7 @@ export const getData=(page)=>async(dispatch)=>{
 
 export const getParticularData=(id)=>async(dispatch)=>{
      try {
+        dispatch({type:'LOADING_TRUE'});
          const {data}=await api.fetchParticularPost(id);
         //  console.log(data);
          const particularPostObj={
@@ -23,6 +26,7 @@ export const getParticularData=(id)=>async(dispatch)=>{
              payload:data
          }
          dispatch(particularPostObj);
+         dispatch({type:'LOADING_FALSE'});
      } catch (error) {
          console.log(error);
      }
@@ -31,6 +35,7 @@ export const getParticularData=(id)=>async(dispatch)=>{
 export const getsearchData=(searchFields)=>async(dispatch)=>{
     try {
         // console.log(searchFields);
+        dispatch({type:'LOADING_TRUE'});
        const {data}=await api.fetchSearchData(searchFields);
     //    console.log(data);
        const getSearchDataObj={
@@ -38,6 +43,7 @@ export const getsearchData=(searchFields)=>async(dispatch)=>{
            payload:data
        }
        dispatch(getSearchDataObj);
+       dispatch({type:'LOADING_FALSE'});
     } catch (error) {
         console.log(error);
     }
@@ -47,14 +53,14 @@ export const postData=(Data)=>async(dispatch)=>{
     //  console.log("my new posted data ")
     //  console.log(Data);
     try {
-
+        dispatch({type:'LOADING_TRUE'});
          const {data}=await api.postData(Data);
         const postDataobj={
             type:'POST_NEW_DATA',
             payload:data,
         }
         dispatch(postDataobj);
-
+        dispatch({type:'LOADING_FALSE'});
     } catch (error) {
         console.log(error);
     }

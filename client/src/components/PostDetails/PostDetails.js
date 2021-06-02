@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react'
-import {Paper,Typography,Divider} from '@material-ui/core'
+import {Paper,Typography,Divider, CircularProgress} from '@material-ui/core'
 import {useSelector} from 'react-redux';
 import useStyles from './styles';
 import  moment  from 'moment';
@@ -10,7 +10,7 @@ import { getParticularData, getsearchData } from '../../actions/postactions';
 
 const PostDetails = () => {
     const classes=useStyles();
-    const {particularpost,posts}=useSelector((state)=>state.postReducer);
+    const {particularpost,posts,loading}=useSelector((state)=>state.postReducer);
     // console.log(particularpost);
     // console.log(posts);
     const {id}=useParams();
@@ -32,6 +32,13 @@ const PostDetails = () => {
 
     if(!particularpost)
     return null;
+
+    if(loading)
+    {
+      return ( <Paper elevation={6} className={classes.loadingPaper}>
+        <CircularProgress size="7em" />
+      </Paper>)
+    }
 
     const recommendedPosts=posts.filter(post=>post._id!==particularpost._id);
 

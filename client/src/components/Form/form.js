@@ -58,11 +58,11 @@ const Form = ({ curr, setCurrent }) => {
 
             :
             <Paper className={classes.paper}>
-                <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handlesubmit} >
+                <form autoComplete="off" className={`${classes.root} ${classes.form}`} onSubmit={handlesubmit} >
                     <Typography variant="h6">{curr === undefined ? 'Creating a post' : 'Editing a post'}</Typography>
-                    <TextField name="title" variant="outlined" fullWidth label="Title" value={Data.title} onChange={(e) => updateData({ ...Data, title: e.target.value })} />
-                    <TextField name="message" variant="outlined" fullWidth label="Message" value={Data.message} onChange={(e) => updateData({ ...Data, message: e.target.value })} />
-                    <TextField name="tags" variant="outlined" fullWidth label="Tags" value={Data.tags} onChange={(e) => updateData({ ...Data, tags: e.target.value })} />
+                    <TextField type="text" name="title" required variant="outlined" fullWidth label="Title" value={Data.title} onChange={(e) => updateData({ ...Data, title: e.target.value })} />
+                    <TextField type="text" name="message" required variant="outlined" fullWidth label="Message" value={Data.message} onChange={(e) => updateData({ ...Data, message: e.target.value })} />
+                    <TextField type="text" name="tags" required variant="outlined" fullWidth label="Tags" value={Data.tags} onChange={(e) => updateData({ ...Data, tags: e.target.value })} />
                     <div className={classes.fileInput}><FileBase type="file" multiple={false} onDone={({ base64 }) => updateData({ ...Data, selectedFile: base64 })} /></div>
                     <Button type="submit" size="large" color="primary" variant="contained" fullWidth className={classes.buttonSubmit} >Submit</Button>
                     <Button size="small" color="secondary" variant="contained" fullWidth onClick={handleclear}>Clear</Button>

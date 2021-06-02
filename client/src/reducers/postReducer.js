@@ -1,6 +1,10 @@
 
-const postReducer=(state={posts:[]},action)=>{
+const postReducer=(state={posts:[],loading:true},action)=>{
     switch (action.type) {
+        case 'LOADING_TRUE':
+            return {...state,loading:true};
+            case 'LOADING_FALSE':
+                return {...state,loading:false};
         case 'FETCH_PARTICULAR_POST':
             return {...state,particularpost:action.payload};
         case 'FETCH_ALL_POSTS':

@@ -47,7 +47,7 @@ const Navbar = () => {
     return (
         <AppBar className={classes.appBar} position="static" color="inherit">
             <div className={classes.brandContainer}>
-                <Typography className={classes.heading} variant="h2" align="center"><Link to='/'>Memories</Link></Typography>
+                <Typography className={classes.heading} variant="h2" align="center"><Link className={classes.heading} to='/'>Memories</Link></Typography>
             </div>
             <Toolbar className={classes.toolbar}>
                 {
