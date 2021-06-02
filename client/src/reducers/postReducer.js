@@ -1,6 +1,8 @@
 
 const postReducer=(state={posts:[]},action)=>{
     switch (action.type) {
+        case 'FETCH_PARTICULAR_POST':
+            return {...state,particularpost:action.payload};
         case 'FETCH_ALL_POSTS':
           return {...state,posts:action.payload.allposts,currentpage:action.payload.currentpage,totalpages:action.payload.totalpages};
           case 'FETCH_SEARCH_POST':

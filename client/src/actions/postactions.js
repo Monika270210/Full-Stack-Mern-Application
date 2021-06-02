@@ -14,6 +14,20 @@ export const getData=(page)=>async(dispatch)=>{
     }
 }
 
+export const getParticularData=(id)=>async(dispatch)=>{
+     try {
+         const {data}=await api.fetchParticularPost(id);
+        //  console.log(data);
+         const particularPostObj={
+             type:'FETCH_PARTICULAR_POST',
+             payload:data
+         }
+         dispatch(particularPostObj);
+     } catch (error) {
+         console.log(error);
+     }
+}
+
 export const getsearchData=(searchFields)=>async(dispatch)=>{
     try {
         // console.log(searchFields);

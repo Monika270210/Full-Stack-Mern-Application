@@ -1,4 +1,5 @@
 import PostMessage from '../models/postmodel.js';
+import mongoose from 'mongoose';
 
 export const getData=async(req,res)=>{
     const {page}=req.query;
@@ -12,6 +13,17 @@ export const getData=async(req,res)=>{
     } catch (error) {
         // console.log("error in getting data ")
         console.log(error); 
+    }
+}
+
+export const getParticularData=async(req,res)=>{
+    const {id}=req.params;
+    // console.log(id);
+    try {
+        const currentPost=await PostMessage.findById(id);
+        res.send(currentPost);
+    } catch (error) {
+        res.send(error);
     }
 }
 

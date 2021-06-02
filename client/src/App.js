@@ -4,6 +4,7 @@ import Navbar from './components/Navbar/navbar';
 import Homepage from './Pages/Home/Homepage';
 import Authpage from './Pages/Auth/Authpage';
 import {BrowserRouter,Switch,Route, Redirect}    from 'react-router-dom';
+import PostDetails from './components/PostDetails/PostDetails';
 
 const App = () => {
     const User=JSON.parse(window.localStorage.getItem('user'));
@@ -15,6 +16,7 @@ const App = () => {
             <Route exact path='/' render={()=><Redirect to='/posts' />} />
             <Route exact path='/posts'  component={Homepage} />
             <Route exact path='/posts/search' component={Homepage} />
+            <Route exact path='/posts/:id' component={PostDetails} />
             <Route exact path='/Auth' component={()=>(User ? <Redirect to='/posts' />:<Authpage/>)} />
             </Switch>
             </Container>

@@ -1,10 +1,12 @@
 import express from 'express';
-import {deleteData, getData,postData,likeData, updateData, getSearchData} from '../controllers/postcontroller.js';
+import {deleteData, getData,postData,likeData, updateData, getSearchData, getParticularData} from '../controllers/postcontroller.js';
 import Auth from '../middleware/auth.js';
 
 const router=express.Router();
 
 router.get('/',getData);
+
+router.get('/:id',getParticularData);
 
 router.get('/search',getSearchData);
 
