@@ -33,15 +33,8 @@ const Post = ({ post,curr,setCurrent }) => {
                 <Typography variant="h6">{post.name}</Typography>
                 <Typography variant="body2">{moment(post.time).fromNow()}</Typography>
             </div>
-            {
-                 (post.creator===currentuser?.profile?.googleId || post.creator===currentuser?.profile?._id) ? 
-            <div className={classes.overlay2}>
-                <Button style={{ color: 'white' }} size="small" onClick={()=>setCurrent(post)} ><MoreHorizIcon fontSize="default" /></Button>
-            </div>
-            :null
-            }
             <div className={classes.details}>
-                <Typography variant="body2" color="textSecondary" component="h2">{post.tags}</Typography>
+                <Typography variant="body2" color="textSecondary" component="h2">Tag-{post.tags}</Typography>
             </div>
             <Typography className={classes.title} gutterBottom variant="h5" component="h2">{post.title}</Typography>
             <CardContent>
@@ -49,6 +42,13 @@ const Post = ({ post,curr,setCurrent }) => {
             </CardContent>
 
             </ButtonBase>
+            {
+                 (post.creator===currentuser?.profile?.googleId || post.creator===currentuser?.profile?._id) ? 
+            <div className={classes.overlay2}>
+                <Button style={{ color: 'white' }} size="small" onClick={()=>setCurrent(post)} ><MoreHorizIcon fontSize="default" /></Button>
+            </div>
+            :null
+            }
 
             <CardActions className={classes.cardActions}>
               {

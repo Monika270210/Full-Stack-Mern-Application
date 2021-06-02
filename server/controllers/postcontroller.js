@@ -4,11 +4,11 @@ import mongoose from 'mongoose';
 export const getData=async(req,res)=>{
     const {page}=req.query;
     try {
-        const limit=3;
+        const limit=6;
         const startind=(page-1)*limit;
         const totalposts=await PostMessage.countDocuments();
         const totalpages=Math.ceil(totalposts/limit);
-        const allposts=await PostMessage.find().sort({_id:-1}).limit(3).skip(startind);
+        const allposts=await PostMessage.find().sort({_id:-1}).limit(6).skip(startind);
         res.send({allposts,totalpages,currentpage:Number(page)});
     } catch (error) {
         // console.log("error in getting data ")
@@ -32,6 +32,7 @@ export const getSearchData=async(req,res)=>{
     try {
          const searchtitle = new RegExp(title, 'i');
         const posts=await PostMessage.find({ $or:[{title:searchtitle},{tags:tag}] });
+        // console.log(posts);
         res.send(posts);
     } catch (error) {
         console.log(error);

@@ -69,9 +69,12 @@ const Homepage = () => {
                             <Button className={classes.searchButton} variant="contained" color="primary" onClick={handleSearch}>Search</Button>
                         </AppBar>
                         <Form curr={curr} setCurrent={setCurrent} />
+                        {
+                        !titlesearch && !tagsearch &&
                         <Paper className={classes.pagination} elevation={6}>
                             <Paginate page={page} />
                         </Paper>
+                        } 
                     </Grid>
                 </Grid>
             </Container>

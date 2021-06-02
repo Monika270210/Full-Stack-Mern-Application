@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-// const url="http://localhost:5000/posts";
+
 const API=axios.create({baseURL:"http://localhost:5000"});
 
 API.interceptors.request.use((req)=>{
@@ -27,7 +27,6 @@ export const likePost=(id)=>API.patch(`/posts`,{user_id:id});
 
 export const updatePost=(Data)=>API.put(`/posts`,{updatedPost:Data});
 
-// const newurl="http://localhost:5000/users";
 
 export const signIn=(UserDetails)=>API.post(`/users/signin`,UserDetails);
 

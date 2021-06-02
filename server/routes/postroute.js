@@ -4,11 +4,12 @@ import Auth from '../middleware/auth.js';
 
 const router=express.Router();
 
+
+router.get('/search',getSearchData);   
+
 router.get('/',getData);
 
 router.get('/:id',getParticularData);
-
-router.get('/search',getSearchData);
 
 router.post('/',Auth,postData);
 

@@ -32,7 +32,7 @@ export const getsearchData=(searchFields)=>async(dispatch)=>{
     try {
         // console.log(searchFields);
        const {data}=await api.fetchSearchData(searchFields);
-       console.log(data);
+    //    console.log(data);
        const getSearchDataObj={
            type:'FETCH_SEARCH_POST',
            payload:data
