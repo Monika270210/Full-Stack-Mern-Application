@@ -11,7 +11,7 @@ import { deleteData, getParticularData, likePost } from '../../../actions/postac
 import {useHistory} from 'react-router-dom';
 
 
-const Post = ({ post,curr,setCurrent }) => {
+const Post = ({ post,curr,setCurrent,myposts }) => {
     const classes = useStyles();
     const dispatch = useDispatch();
     const history=useHistory();
@@ -43,7 +43,7 @@ const Post = ({ post,curr,setCurrent }) => {
 
             </ButtonBase>
             {
-                 (post.creator===currentuser?.profile?.googleId || post.creator===currentuser?.profile?._id) ? 
+                 ((post.creator===currentuser?.profile?.googleId || post.creator===currentuser?.profile?._id) && !myposts) ? 
             <div className={classes.overlay2}>
                 <Button style={{ color: 'white' }} size="small" onClick={()=>setCurrent(post)} ><MoreHorizIcon fontSize="default" /></Button>
             </div>
@@ -58,7 +58,7 @@ const Post = ({ post,curr,setCurrent }) => {
                 <Button size="small" color="primary" disabled={!currentuser?.profile} onClick={()=>dispatch(likePost(post))} ><ThumbUpAltOutlined /> Like{post.likes.length}</Button>
               }
                {
-                   (post.creator===currentuser?.profile?.googleId || post.creator===currentuser?.profile?._id) ? 
+                   ((post.creator===currentuser?.profile?.googleId || post.creator===currentuser?.profile?._id) && !myposts) ? 
                    <Button size="small" color="primary" onClick={()=>dispatch(deleteData(post))}  ><DeleteIcon /> Delete</Button>
                    :null
                }

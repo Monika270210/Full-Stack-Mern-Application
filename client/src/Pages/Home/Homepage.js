@@ -4,7 +4,7 @@ import Posts from '../../components/Posts/posts';
 import { Grid, Grow, Container, Paper,AppBar,TextField,Button } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import {useHistory,useLocation} from 'react-router-dom'
-import {  getsearchData } from '../../actions/postactions';
+import {  getCurrentUserPosts, getsearchData } from '../../actions/postactions';
 import Paginate from '../../components/Pagination/Pagination';
 import useStyles from './styles'
 
@@ -25,6 +25,7 @@ const Homepage = () => {
     const history=useHistory();
     const query=useQuery();
     const page = query.get('page') || 1;
+    const currentUser=JSON.parse(window.localStorage.getItem('user'));
     // console.log(page);
 
 
@@ -47,6 +48,27 @@ const Homepage = () => {
         }
     }
 
+    const handleKeypress=(e)=>{
+        if(e.keyCode===13)
+        {
+            handleSearch();
+        }
+    }
+
+    const handlemypost=async()=>{
+        // i have to dispatch an action
+       if(currentUser)
+       {
+           dispatch(getCurrentUserPosts());
+
+        history.push(`/posts/myposts/${currentUser.profile.googleId || currentUser.profile._id}`);
+       }
+       else
+       {
+           history.push('/Auth');
+       }
+    }
+
 
     return (
 
@@ -57,7 +79,8 @@ const Homepage = () => {
                         <Posts curr={curr} setCurrent={setCurrent} />
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
-                        <AppBar className={classes.appBarSearch} position="static" color="inherit">
+                        <Button className={classes.myposts} variant="contained" color="secondary" fullWidth onClick={()=>handlemypost()}>My posts</Button>
+                        <AppBar className={classes.appBarSearch} position="static" color="inherit" onKeyDown={handleKeypress}>
                             <TextField name="titlesearch" variant="outlined" label="Search Title" fullWidth
                               value={titlesearch}
                               onChange={handlechange}

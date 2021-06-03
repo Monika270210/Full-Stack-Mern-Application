@@ -1,6 +1,8 @@
 
 const postReducer=(state={posts:[],loading:true},action)=>{
     switch (action.type) {
+        case 'CURRENT_USER_POSTS':
+            return {...state,currentuserPosts:action.payload};
         case 'LOADING_TRUE':
             return {...state,loading:true};
             case 'LOADING_FALSE':

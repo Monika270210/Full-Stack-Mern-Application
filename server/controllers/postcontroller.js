@@ -39,6 +39,15 @@ export const getSearchData=async(req,res)=>{
     }
 }
 
+export const getCurrentUserPosts=async(req,res)=>{
+    try {
+        const currentUserPosts=await PostMessage.find({creator:req.userId});
+        res.send(currentUserPosts);
+    } catch (error) {
+        res.send(error);
+    }
+}
+
 export const postData=async(req,res)=>{
     const newpost=req.body;
     const newPost= new PostMessage({...newpost,creator:req.userId,time:new Date().toISOString()});

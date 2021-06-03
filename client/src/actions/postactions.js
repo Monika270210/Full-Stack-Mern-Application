@@ -49,6 +49,23 @@ export const getsearchData=(searchFields)=>async(dispatch)=>{
     }
 }
 
+export const getCurrentUserPosts=()=>async(dispatch)=>{
+
+    try {   
+        dispatch({type:'LOADING_TRUE'});
+        const {data}=await api.fetchCurrentUserPosts();
+        // console.log(data);
+        const currentUserObj={
+            type:'CURRENT_USER_POSTS',
+            payload:data
+        }
+        dispatch(currentUserObj);
+        dispatch({type:'LOADING_FALSE'});
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 export const postData=(Data)=>async(dispatch)=>{
     //  console.log("my new posted data ")
     //  console.log(Data);
