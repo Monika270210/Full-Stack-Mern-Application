@@ -1,37 +1,37 @@
 import PostMessage from '../models/postmodel.js';
 import mongoose from 'mongoose';
 
-export const getData=async(req,res)=>{
-    const {page}=req.query;
+export const getData = async (req, res) => {
+    const { page } = req.query;
     try {
-        const limit=6;
-        const startind=(page-1)*limit;
-        const totalposts=await PostMessage.countDocuments();
-        const totalpages=Math.ceil(totalposts/limit);
-        const allposts=await PostMessage.find().sort({_id:-1}).limit(6).skip(startind);
-        res.send({allposts,totalpages,currentpage:Number(page)});
+        const limit = 9;
+        const startind = (page - 1) * limit;
+        const totalposts = await PostMessage.countDocuments();
+        const totalpages = Math.ceil(totalposts / limit);
+        const allposts = await PostMessage.find().sort({ _id: -1 }).limit(9).skip(startind);
+        res.send({ allposts, totalpages, currentpage: Number(page) });
     } catch (error) {
         // console.log("error in getting data ")
-        console.log(error); 
+        console.log(error);
     }
 }
 
-export const getParticularData=async(req,res)=>{
-    const {id}=req.params;
+export const getParticularData = async (req, res) => {
+    const { id } = req.params;
     // console.log(id);
     try {
-        const currentPost=await PostMessage.findById(id);
+        const currentPost = await PostMessage.findById(id);
         res.send(currentPost);
     } catch (error) {
         res.send(error);
     }
 }
 
-export const getSearchData=async(req,res)=>{
-     const {title,tag}=req.query;
+export const getSearchData = async (req, res) => {
+    const { title, tags } = req.query;
     try {
-         const searchtitle = new RegExp(title, 'i');
-        const posts=await PostMessage.find({ $or:[{title:searchtitle},{tags:tag}] });
+        const searchtitle = new RegExp(title, 'i');
+        const posts = await PostMessage.find({ $or: [{ title: searchtitle }, { tags: { $in: tags.split(',') } }] });
         // console.log(posts);
         res.send(posts);
     } catch (error) {
@@ -39,21 +39,21 @@ export const getSearchData=async(req,res)=>{
     }
 }
 
-export const getCurrentUserPosts=async(req,res)=>{
+export const getCurrentUserPosts = async (req, res) => {
     try {
-        const currentUserPosts=await PostMessage.find({creator:req.userId});
+        const currentUserPosts = await PostMessage.find({ creator: req.userId });
         res.send(currentUserPosts);
     } catch (error) {
         res.send(error);
     }
 }
 
-export const postData=async(req,res)=>{
-    const newpost=req.body;
-    const newPost= new PostMessage({...newpost,creator:req.userId,time:new Date().toISOString()});
+export const postData = async (req, res) => {
+    const newpost = req.body;
+    const newPost = new PostMessage({ ...newpost, creator: req.userId, time: new Date().toISOString() });
     try {
-      await newPost.save();
-       res.send(newPost);
+        await newPost.save();
+        res.send(newPost);
         // console.log("saving the new post !!");
     } catch (error) {
         // console.log("error in posting data ");
@@ -62,12 +62,12 @@ export const postData=async(req,res)=>{
 }
 
 
-export const deleteData=async(req,res)=>{
-    const id=req.body.delete_id
-    
+export const deleteData = async (req, res) => {
+    const id = req.body.delete_id
+
     try {
-       const deletedPost=await PostMessage.findByIdAndDelete(id);
-       res.send(deletedPost);
+        const deletedPost = await PostMessage.findByIdAndDelete(id);
+        res.send(deletedPost);
         // console.log("deleting the post !!");  
     } catch (error) {
         // console.log("error while deleting !!");
@@ -75,38 +75,36 @@ export const deleteData=async(req,res)=>{
     }
 }
 
-export const likeData=async(req,res)=>{
-    const id=req.body.user_id;
+export const likeData = async (req, res) => {
+    const id = req.body.user_id;
     // console.log(id);
     try {
-        const post=await PostMessage.findById(id);
-        const ifalreadyliked=post.likes.findIndex((id) => id ===String(req.userId));
-        if(ifalreadyliked==-1)
-        {
+        const post = await PostMessage.findById(id);
+        const ifalreadyliked = post.likes.findIndex((id) => id === String(req.userId));
+        if (ifalreadyliked == -1) {
             // liking..
             post.likes.push(req.userId);
         }
-        else
-        {
+        else {
             // disliking...
-          post.likes=post.likes.filter(id=>id!==String(req.userId));
+            post.likes = post.likes.filter(id => id !== String(req.userId));
         }
-        const updatedPost=await PostMessage.findByIdAndUpdate(id,post,{new:true});
+        const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
         res.send(updatedPost);
     } catch (error) {
         console.log(error);
     }
 }
 
-export const updateData=async(req,res)=>{
-//    console.log("updating...");
-    const updatedPost=req.body.updatedPost;
+export const updateData = async (req, res) => {
+    //    console.log("updating...");
+    const updatedPost = req.body.updatedPost;
     // console.log(updatedPost);
     try {
-         
-      await PostMessage.findOneAndReplace({_id:updatedPost._id},updatedPost);
-       res.send(updatedPost);
-    //   console.log("replacement successfull !!!");
+
+        await PostMessage.findOneAndReplace({ _id: updatedPost._id }, updatedPost);
+        res.send(updatedPost);
+        //   console.log("replacement successfull !!!");
 
 
     } catch (error) {

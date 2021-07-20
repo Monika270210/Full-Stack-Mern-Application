@@ -4,7 +4,7 @@ import AuthReducer from './authReducer';
 
 // console.log(postReducer());
 
-const RootReducer=combineReducers({
+const RootReducer = combineReducers({
     postReducer,
     AuthReducer
 })
